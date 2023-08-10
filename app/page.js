@@ -1,21 +1,60 @@
 "use client";
 import React, { useState } from "react";
+import { toast } from 'react-toastify';
 
 export const page = () => {
   const [title, settitle] = useState("");
   const [description, setdescription] = useState("");
   const [status, setstatus] = useState("due");
 
+  const [tasks, setTasks] = useState([]);
+
   const submitHandler = (e)=>{
       e.preventDefault();
+      if(title.length<5 || description.length<15){
+        toast.error("The length of title and description must be 5 and 15 respectively");
+        return;
+      }
       let newTask = {
         title,
         description,
         status,
         date: new Date().toLocaleDateString(),
       }
-      console.log(newTask);
+
+      // const copytask = [...tasks];
+      // copytask.push(newTask);
+      // setTasks(copytask);
+
+      setTasks([...tasks, newTask]);
+      settitle("");
+      setdescription("");
+      setstatus("due");// error
+
+
+
+
   }
+  let showTask = <h1 className="w-100 text-center"> Loading..</h1>;
+
+  if(tasks.length>0){
+   showTask = tasks.map((task, index)=>{
+      return ( <div className="card  mb-3 me-3" key={index} style={{ width: "18rem" }}>
+      <div className="card-body">
+        <h5 className="card-title">Card title</h5>
+        <h6 className="card-subtitle mb-2 text-body-secondary">
+          {task.title}
+        </h6>
+        <p className="card-text">
+         {task.description}
+        </p>
+        <button className="me-2 btn btn-sm   btn-dark">Update Task</button>
+        <button className="btn btn-sm btn-dark">Delete Task</button>
+      </div>
+
+    </div>);
+  })
+}
 
   return (      
     <div className="mt-5 container p-5">
@@ -36,20 +75,7 @@ export const page = () => {
       </form>
       <h2>Pending Tasks</h2>
       <div className="d-flex flex-wrap">
-        <div className="card  mb-3 me-3" style={{ width: "18rem" }}>
-          <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <h6 className="card-subtitle mb-2 text-body-secondary">
-              Card subtitle
-            </h6>
-            <p className="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
-            <button className="me-2 btn btn-sm   btn-dark">Update Task</button>
-            <button className="btn btn-sm btn-dark">Delete Task</button>
-          </div>
-        </div>
+       {showTask}
       </div>
     </div>
   );
