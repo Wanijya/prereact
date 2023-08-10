@@ -35,6 +35,15 @@ export const page = () => {
 
 
   }
+
+  const deleteHandler = (index)=>{
+    // let copytask = [...tasks];
+    // copytask.splice(index, 1);
+    // setTasks(copytask);
+    // i is filter method index.
+    setTasks(tasks.filter((event ,i)=>index !== i ));
+  }
+
   let showTask = <h1 className="w-100 text-center"> Loading..</h1>;
 
   if(tasks.length>0){
@@ -49,7 +58,7 @@ export const page = () => {
          {task.description}
         </p>
         <button className="me-2 btn btn-sm   btn-dark">Update Task</button>
-        <button className="btn btn-sm btn-dark">Delete Task</button>
+        <button className="btn btn-sm btn-dark" onClick={()=>deleteHandler(index)}>Delete Task</button>
       </div>
 
     </div>);
