@@ -1,43 +1,18 @@
-"use client";
-import Create from "@/components/Create";
-import Show from "@/components/Show";
-import React, { useState } from "react";
+import Link from "next/link";
+import React from "react";
 
-export const page = () => {
-  const [title, settitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [status, setStatus] = useState("due");
-
-  const [tasks, setTasks] = useState([]);
-
-  const [activeTask, setActiveTask] = useState(null);
-
+const page = () => {
   return (
-    <div className="mt-5 container p-5">
-      <hr />
-      <Create
-        tasks={tasks}
-        setTasks={setTasks}
-        title={title}
-        settitle={settitle}
-        description={description}
-        setDescription={setDescription}
-        status={status}
-        setStatus={setStatus}
-        activeTask={activeTask}
-        setActiveTask={setActiveTask}
-      />
-
-      <h2>Pending Tasks</h2>
-      <Show
-        tasks={tasks}
-        setTasks={setTasks}
-        settitle={settitle}
-        setDescription={setDescription}
-        setStatus={setStatus}
-        setActiveTask={setActiveTask}
-      />
+    <div className="container mt-4">
+      <nav className="d-flex">
+        <Link href="/signin">Signin</Link>
+        <Link className="mx-3" href="/signup">
+          Signup
+        </Link>
+        <Link href="/about">About</Link>
+      </nav>
     </div>
   );
 };
+
 export default page;
